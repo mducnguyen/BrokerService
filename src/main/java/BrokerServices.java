@@ -22,7 +22,10 @@ public class BrokerServices {
         get("/brokers", (request, response) -> brokersHandler.getAllBroker(request, response), jsonTransformer);
         post("/brokers", (request, response) -> brokersHandler.createBroker(request, response), jsonTransformer);
 
-
+        get("/brokers/:gameId", (request, response) -> brokersHandler.findBroker(request.params(":gameId"), request,response), jsonTransformer );
+        put("/brokers/:gameId", (request, response) -> brokersHandler.createBroker(request.params(":gameId"), request,response),jsonTransformer);
+        
+        get("/brokers/:gameId/places", (request, response) -> brokersHandler.getEstates(request.params(":gameId"), request,response), jsonTransformer );
     }
 
     private static void registerRepositories() {

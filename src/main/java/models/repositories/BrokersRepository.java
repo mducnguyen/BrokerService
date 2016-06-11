@@ -40,4 +40,10 @@ public class BrokersRepository implements IBrokersRepository {
         brokersMap.put(broker.getId(),broker);
         return broker;
     }
+
+    @Override
+    public Broker findBroker(String gameid)
+    {
+        return brokersMap.get(gameid);
+    }
 }
