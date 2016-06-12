@@ -3,9 +3,7 @@ package models.repositories;
 import models.Broker;
 import models.repositories.exception.CannotCreateException;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +42,7 @@ public class BrokersRepository implements IBrokersRepository {
     @Override
     public Broker findBroker(String gameid)
     {
+        //System.out.println("gameid: " + gameid + brokersMap.get(gameid).getId());
         return brokersMap.get(gameid);
     }
 }

@@ -2,6 +2,7 @@ package handlers.responses;
 
 import lombok.Data;
 import models.Broker;
+import models.Estate;
 
 /**
  * Created by minhnguy on 01.06.2016.

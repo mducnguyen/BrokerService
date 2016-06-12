@@ -1,18 +1,14 @@
 package handlers.responses;
 
+import java.util.List;
+
 import models.Broker;
 
 public class EstatesResponse
 {
-    private String estates;
+    private List<String> estates;
 
-    public EstatesResponse(String estates)
-    {
-        this.estates = estates;
-    }
-    
-    public EstatesResponse(Broker broker)
-    {
-        this.estates = broker.getEstates();
+    public EstatesResponse(List<String> estatesIds) {
+        this.estates = estatesIds;
     }
 }

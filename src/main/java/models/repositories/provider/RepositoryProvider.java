@@ -21,4 +21,9 @@ public class RepositoryProvider {
     public static IRepository provide(Class repositoryClass) {
         return repositoryMap.get(repositoryClass);
     }
+
+    public static IRepository getRepository(Class<IBrokersRepository> repositoryClasse)
+    {
+        return repositoryMap.get(repositoryClasse);
+    }
 }

@@ -1,5 +1,7 @@
 package handlers.requestForm;
 
+import models.Estate;
+
 /**
  * Created by minhnguy on 01.06.2016.
  */
