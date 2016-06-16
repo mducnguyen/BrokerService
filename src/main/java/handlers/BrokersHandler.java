@@ -27,8 +27,10 @@ import spark.Response;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by minhnguy on 01.06.2016.
@@ -39,10 +41,12 @@ public class BrokersHandler {
     
     private Map<String, IEstatesRepository> estatesMap;
     //private IEstatesRepository estatesRepository;
+    private Set<String> usedIds;
 
     public BrokersHandler(IBrokersRepository brokersRepository) {
         this.brokersRepository = brokersRepository;
         estatesMap = new HashMap<String, IEstatesRepository>();
+        usedIds = new HashSet<String>();
 //        for(Broker broker : brokersRepository.geAllBrokers())
 //            estatesMap.put(broker.getId(), new EstatesRepository(new HashMap<String, Estate>()));
     }
@@ -175,16 +179,22 @@ public class BrokersHandler {
         try {
 
             estateForm = (new ObjectMapper()).readValue(request.body(), EstateForm.class);
-            Estate estate = new Estate(estateForm.getId(), estateForm.getPlace(), estateForm.getOwner(), estateForm.getValue(),
+            Estate estate = new Estate(placesid, estateForm.getPlace(), estateForm.getOwner(), estateForm.getValue(),
                     estateForm.getRent(), estateForm.getCost(), estateForm.getHouses(), estateForm.getVisit(), estateForm.getHypocredit());
 
             try {
-//                if(estatesMap.containsKey(estatesMap.get(gameid).findEstate(gameid).getId()))
+//                if(estatesMap.get(gameid).findEstate(placesid).getId() != null)
 //                {
-//                    response.status(HttpStatus.SC_OK);
-//                    return new EstateResponse(estate);
+//                    if(estatesMap.get(gameid).findEstate(placesid).getId().equals(placesid))
+//                    {
+                    if(usedIds.contains(placesid))
+                    {
+                        response.status(HttpStatus.SC_OK);
+                        return new EstateResponse(estatesMap.get(gameid).findEstate(placesid));
+                    }
 //                }
                 estatesMap.get(gameid).createEstate(estate);
+                usedIds.add(placesid);
                 response.status(HttpStatus.SC_CREATED);
                 return new EstateResponse(estate);
             } catch (CannotCreateException e) {
